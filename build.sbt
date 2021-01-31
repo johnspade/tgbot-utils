@@ -18,16 +18,16 @@ bintrayReleaseOnPublish in ThisBuild := false
 
 ThisBuild / testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 
-lazy val `callback-queries`: Project = (project in file("callback-queries"))
+lazy val `tgbot-callback-queries`: Project = (project in file("tgbot-callback-queries"))
   .settings(
-    name := "callback-queries",
+    name := "tgbot-callback-queries",
     libraryDependencies ++= CallbackQueries.dependencies,
     addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.2" cross CrossVersion.full)
   )
 
-lazy val `message-entities`: Project = (project in file("message-entities"))
+lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-entities"))
   .settings(
-    name := "message-entities",
+    name := "tgbot-message-entities",
     libraryDependencies ++= MessageEntities.dependencies
   )
 
@@ -37,4 +37,4 @@ lazy val root = (project in file("."))
     skip in publish := true,
     crossScalaVersions := Nil
   )
-  .aggregate(`callback-queries`, `message-entities`)
+  .aggregate(`tgbot-callback-queries`, `tgbot-message-entities`)
