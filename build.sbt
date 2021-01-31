@@ -35,3 +35,4 @@ lazy val root = (project in file("."))
     name := "tgbot-utils"
   )
   .aggregate(`tgbot-callback-queries`, `tgbot-message-entities`)
+  .dependsOn(`tgbot-callback-queries`, `tgbot-message-entities`)
