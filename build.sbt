@@ -12,7 +12,6 @@ ThisBuild / crossScalaVersions := List(scala213, scala212)
 
 ThisBuild / organization := "ru.johnspade"
 ThisBuild / licenses := List(("MIT", url("http://opensource.org/licenses/MIT")))
-ThisBuild / publishMavenStyle := true
 
 bintrayReleaseOnPublish in ThisBuild := false
 
@@ -33,8 +32,6 @@ lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-ent
 
 lazy val root = (project in file("."))
   .settings(
-    name := "tgbot-utils",
-    skip in publish := true,
-    crossScalaVersions := Nil
+    name := "tgbot-utils"
   )
   .aggregate(`tgbot-callback-queries`, `tgbot-message-entities`)
