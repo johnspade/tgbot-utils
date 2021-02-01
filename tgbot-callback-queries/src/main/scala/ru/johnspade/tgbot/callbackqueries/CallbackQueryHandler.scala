@@ -3,15 +3,14 @@ package ru.johnspade.tgbot.callbackqueries
 import cats.data.OptionT
 import cats.{Monad, MonadError}
 import telegramium.bots.CallbackQuery
-import telegramium.bots.client.Method
 
 object CallbackQueryHandler {
-  def handle[F[_]: Monad, I](
+  def handle[F[_]: Monad, I, Res](
     cb: CallbackQuery,
-    routes: CallbackQueryRoutes[I, F],
+    routes: CallbackQueryRoutes[I, Res, F],
     decoder: CallbackDataDecoder[F, I],
-    onNotFound: CallbackQuery => F[Option[Method[_]]]
-  )(implicit F: MonadError[F, Throwable]): F[Option[Method[_]]] =
+    onNotFound: CallbackQuery => F[Res]
+  )(implicit F: MonadError[F, Throwable]): F[Res] =
     (for {
       queryData <- OptionT.fromOption[F](cb.data)
       data <- OptionT.liftF(F.rethrow(decoder.decode(queryData).value))

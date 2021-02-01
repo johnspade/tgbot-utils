@@ -34,9 +34,7 @@ object TypedMessageEntity {
       ._1
       .reverse
 
-  final case class Plain(text: String) extends TypedMessageEntity {
-    def value: String = text
-  }
+  final case class Plain(text: String) extends TypedMessageEntity
 
   object Plain {
     val lineBreak: Plain = Plain("\n")
