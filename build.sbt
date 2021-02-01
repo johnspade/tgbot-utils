@@ -14,6 +14,8 @@ ThisBuild / organization := "ru.johnspade"
 ThisBuild / licenses := List(("MIT", url("http://opensource.org/licenses/MIT")))
 
 bintrayReleaseOnPublish in ThisBuild := false
+ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.11", "adopt@1.8")
+ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 
 ThisBuild / testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 
