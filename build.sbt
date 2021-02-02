@@ -19,16 +19,20 @@ ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 
 ThisBuild / testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 
+lazy val `tgbot-callback-data`: Project = (project in file("tgbot-callback-data"))
+  .settings(
+    libraryDependencies ++= CallbackData.dependencies,
+    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+  )
+
 lazy val `tgbot-callback-queries`: Project = (project in file("tgbot-callback-queries"))
   .settings(
-    name := "tgbot-callback-queries",
     libraryDependencies ++= CallbackQueries.dependencies,
     addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.2" cross CrossVersion.full)
   )
 
 lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-entities"))
   .settings(
-    name := "tgbot-message-entities",
     libraryDependencies ++= MessageEntities.dependencies
   )
 
@@ -36,5 +40,5 @@ lazy val root = (project in file("."))
   .settings(
     name := "tgbot-utils"
   )
-  .aggregate(`tgbot-callback-queries`, `tgbot-message-entities`)
-  .dependsOn(`tgbot-callback-queries`, `tgbot-message-entities`)
+  .aggregate(`tgbot-callback-data`, `tgbot-callback-queries`, `tgbot-message-entities`)
+  .dependsOn(`tgbot-callback-data`, `tgbot-callback-queries`, `tgbot-message-entities`)
