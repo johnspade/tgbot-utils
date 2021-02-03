@@ -5,6 +5,22 @@
 Collection of extensions for [Telegramium](https://github.com/apimorphism/telegramium) 
 (a pure functional Telegram Bot API implementation for Scala) that I use to build my bots.
 
+# Setup
+
+tgbot-utils is currently available for Scala 2.12 and 2.13.
+
+Whole utils pack:
+
+```scala
+resolvers += Resolver.bintrayRepo("johnspade", "maven")
+
+libraryDependencies += "ru.johnspade" %% "tgbot-utils" % "latest version in badge"
+```
+A specific module:
+```scala
+libraryDependencies += "ru.johnspade" %% "module name" % "latest version in badge"
+```
+
 ## tgbot-callback-data
 
 Represent your callback query data types as an ADT and use [kantan.csv](https://github.com/nrinaudo/kantan.csv) 
