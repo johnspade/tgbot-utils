@@ -16,5 +16,6 @@ object ModuleWithDependencies {
     val zioCats = "2.2.0.1"
     val kantanCsv = "0.6.1"
     val magnolia = "0.17.0"
+    val cats = "2.3.1"
   }
 }
