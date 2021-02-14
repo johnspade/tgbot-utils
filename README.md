@@ -169,3 +169,8 @@ val text = messageEntities.map(_.text).mkString
   pre: monowidth block
  */
 ```
+
+# Usages
+
+- [s10ns_bot](https://github.com/johnspade/s10ns_bot) – Subscription Management Telegram Bot
+- [Taskobot](https://github.com/johnspade/taskobot-scala) – task collaboration inline Telegram bot 
