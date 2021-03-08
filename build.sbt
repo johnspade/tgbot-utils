@@ -22,7 +22,6 @@ ThisBuild / developers := List(Developer(
   "johnspade", "Ivan Lopatin", "ivan+tgbotutils@ilopatin.ru", url("https://about.johnspade.ru")
 ))
 
-bintrayReleaseOnPublish in ThisBuild := false
 ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.11", "adopt@1.8")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 
