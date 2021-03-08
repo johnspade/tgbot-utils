@@ -1,11 +1,11 @@
 package ru.johnspade.tgbot.callbackqueries
 
+import cats.MonadError
 import cats.data.OptionT
-import cats.{Monad, MonadError}
 import telegramium.bots.CallbackQuery
 
 object CallbackQueryHandler {
-  def handle[F[_]: Monad, I, Res](
+  def handle[F[_], I, Res](
     cb: CallbackQuery,
     routes: CallbackQueryRoutes[I, Res, F],
     decoder: CallbackDataDecoder[F, I],

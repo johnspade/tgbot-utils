@@ -4,7 +4,7 @@ name := "tgbot-utils"
 
 ThisBuild / version := "0.3.0"
 
-lazy val scala213 = "2.13.4"
+lazy val scala213 = "2.13.5"
 lazy val scala212 = "2.12.13"
 
 ThisBuild / scalaVersion := scala213
@@ -28,7 +28,7 @@ lazy val `tgbot-callback-data`: Project = (project in file("tgbot-callback-data"
 lazy val `tgbot-callback-queries`: Project = (project in file("tgbot-callback-queries"))
   .settings(
     libraryDependencies ++= CallbackQueries.dependencies,
-    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.2" cross CrossVersion.full)
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.full)
   )
 
 lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-entities"))
