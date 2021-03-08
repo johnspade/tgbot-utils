@@ -14,11 +14,11 @@ Whole utils pack:
 ```scala
 resolvers += Resolver.bintrayRepo("johnspade", "maven")
 
-libraryDependencies += "ru.johnspade" %% "tgbot-utils" % "latest version in badge"
+libraryDependencies += "ru.johnspade" %% "tgbot-utils" % "<latest version in badge>"
 ```
 A specific module:
 ```scala
-libraryDependencies += "ru.johnspade" %% "module name" % "latest version in badge"
+libraryDependencies += "ru.johnspade" %% "<module name>" % "<latest version in badge>"
 ```
 
 ## tgbot-callback-data

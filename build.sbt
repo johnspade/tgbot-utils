@@ -22,6 +22,11 @@ ThisBuild / developers := List(Developer(
   "johnspade", "Ivan Lopatin", "ivan+tgbotutils@ilopatin.ru", url("https://about.johnspade.ru")
 ))
 
+ThisBuild / publishMavenStyle := true
+ThisBuild / publishTo := sonatypePublishToBundle.value
+ThisBuild / sonatypeRepository := "https://s01.oss.sonatype.org/service/local"
+ThisBuild / sonatypeCredentialHost := "s01.oss.sonatype.org"
+
 ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.11", "adopt@1.8")
 ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 
