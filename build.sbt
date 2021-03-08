@@ -10,8 +10,17 @@ lazy val scala212 = "2.12.13"
 ThisBuild / scalaVersion := scala213
 ThisBuild / crossScalaVersions := List(scala213, scala212)
 
+ThisBuild / description := "Collection of utilities for building Telegram bots in Scala"
 ThisBuild / organization := "ru.johnspade"
+ThisBuild / homepage := Some(url("https://github.com/johnspade/tgbot-utils"))
 ThisBuild / licenses := List(("MIT", url("http://opensource.org/licenses/MIT")))
+ThisBuild / scmInfo := Some(ScmInfo(
+  url("https://github.com/johnspade/tgbot-utils"),
+  "git@github.com:johnspade/tgbot-utils.git"
+))
+ThisBuild / developers := List(Developer(
+  "johnspade", "Ivan Lopatin", "ivan+tgbotutils@ilopatin.ru", url("https://about.johnspade.ru")
+))
 
 bintrayReleaseOnPublish in ThisBuild := false
 ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.11", "adopt@1.8")
