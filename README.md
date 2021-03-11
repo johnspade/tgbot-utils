@@ -1,6 +1,6 @@
 # tgbot-utils
 
-![Bintray](https://img.shields.io/bintray/v/johnspade/maven/tgbot-utils)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ru.johnspade/tgbot-utils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/ru.johnspade/tgbot-utils)
 
 Collection of extensions for [Telegramium](https://github.com/apimorphism/telegramium) 
 (a pure functional Telegram Bot API implementation for Scala) that I use to build my bots.
@@ -12,8 +12,6 @@ tgbot-utils is currently available for Scala 2.12 and 2.13.
 Whole utils pack:
 
 ```scala
-resolvers += Resolver.bintrayRepo("johnspade", "maven")
-
 libraryDependencies += "ru.johnspade" %% "tgbot-utils" % "<latest version in badge>"
 ```
 A specific module:
