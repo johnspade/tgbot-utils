@@ -1,6 +1,6 @@
 # tgbot-utils
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ru.johnspade/tgbot-utils/badge.svg)](https://maven-badges.herokuapp.com/maven-central/ru.johnspade/tgbot-utils)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/ru.johnspade/tgbot-utils_2.13/badge.svg)](https://maven-badges.herokuapp.com/maven-central/ru.johnspade/tgbot-utils_2.13)
 
 Collection of extensions for [Telegramium](https://github.com/apimorphism/telegramium) 
 (a pure functional Telegram Bot API implementation for Scala) that I use to build my bots.
