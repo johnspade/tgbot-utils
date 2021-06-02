@@ -52,7 +52,7 @@ object TypedMessageEntity {
 
   final case class Bold(text: String) extends TypedMessageEntity
 
-  final case class Pre(text: String, language: String) extends TypedMessageEntity
+  final case class Pre(text: String, language: Option[String]) extends TypedMessageEntity
 
   final case class Italic(text: String) extends TypedMessageEntity
 
