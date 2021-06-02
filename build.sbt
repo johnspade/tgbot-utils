@@ -13,7 +13,7 @@ ThisBuild / crossScalaVersions := List(scala213, scala212)
 ThisBuild / description := "Collection of utilities for building Telegram bots in Scala"
 ThisBuild / organization := "ru.johnspade"
 ThisBuild / homepage := Some(url("https://github.com/johnspade/tgbot-utils"))
-ThisBuild / licenses := List(("MIT", url("http://opensource.org/licenses/MIT")))
+ThisBuild / licenses := List(("MIT", url("https://opensource.org/licenses/MIT")))
 ThisBuild / scmInfo := Some(ScmInfo(
   url("https://github.com/johnspade/tgbot-utils"),
   "git@github.com:johnspade/tgbot-utils.git"
