@@ -11,8 +11,8 @@ trait ModuleWithDependencies {
 
 object ModuleWithDependencies {
   object V {
-    val telegramium = "5.53.0"
-    val zio = "1.0.9"
+    val telegramium = "7.53.0"
+    val zio = "1.0.11"
     val zioCats = "3.1.1.0"
     val kantanCsv = "0.6.1"
     val magnolia = "0.17.0"

@@ -40,7 +40,7 @@ lazy val `tgbot-callback-data`: Project = (project in file("tgbot-callback-data"
 lazy val `tgbot-callback-queries`: Project = (project in file("tgbot-callback-queries"))
   .settings(
     libraryDependencies ++= CallbackQueries.dependencies,
-    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.0" cross CrossVersion.full)
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full)
   )
 
 lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-entities"))
