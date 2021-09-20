@@ -5,7 +5,7 @@ name := "tgbot-utils"
 ThisBuild / version := "0.4.0"
 
 lazy val scala213 = "2.13.6"
-lazy val scala212 = "2.12.14"
+lazy val scala212 = "2.12.15"
 
 ThisBuild / scalaVersion := scala213
 ThisBuild / crossScalaVersions := List(scala213, scala212)
