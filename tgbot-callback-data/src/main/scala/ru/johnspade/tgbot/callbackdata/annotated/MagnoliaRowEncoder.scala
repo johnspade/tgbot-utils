@@ -1,26 +1,24 @@
 package ru.johnspade.tgbot.callbackdata.annotated
 
-import kantan.csv.RowEncoder
-import magnolia._
+import ru.johnspade.zcsv.codecs.*
+import magnolia1.*
+import ru.johnspade.zcsv.core.CSV
+import zio.prelude.NonEmptyList
 
-object MagnoliaRowEncoder {
-  type Typeclass[T] = RowEncoder[T]
+object MagnoliaRowEncoder extends AutoDerivation[RowEncoder]:
+  override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
+    val encodedFields = ctx.params.foldLeft(List.empty[CSV.Field]) { (acc, p) =>
+      acc ++ p.typeclass.encode(p.deref(value)).l.toSeq
+    }
+    CSV.Row(nelFromListUnsafe(encodedFields))
 
-  def combine[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
-    (d: T) =>
-      ctx.parameters.foldLeft(Seq.empty[String]) {
-        (acc, p) => acc ++ p.typeclass.encode(p.dereference(d))
-      }
-
-  def dispatch[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
-    (d: T) =>
-      ctx.dispatch(d) { sub =>
-        val typeId = sub.annotations.collectFirst {
-          case TypeId(id) => id.toString
-        }
+  override def split[A](ctx: SealedTrait[Typeclass, A]): Typeclass[A] =
+    (d: A) =>
+      ctx.choose(d) { sub =>
+        val typeId = sub.annotations
+          .collectFirst { case TypeId(id) =>
+            id.toString
+          }
           .getOrElse(throw new RuntimeException("TypeId not found"))
-        typeId +: sub.typeclass.encode(sub.cast(d))
+        CSV.Row(NonEmptyList.cons(CSV.Field(typeId), sub.typeclass.encode(sub.cast(d)).l))
       }
-
-  implicit def deriveRowEncoder[T]: Typeclass[T] = macro Magnolia.gen[T]
-}

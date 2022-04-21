@@ -1,29 +1,25 @@
 package ru.johnspade.tgbot.callbackdata.named
 
-import kantan.csv.{DecodeError, RowDecoder}
-import magnolia._
+import magnolia1.*
+import ru.johnspade.zcsv.codecs.*
+import ru.johnspade.zcsv.core.CSV
+import zio.prelude.NonEmptyList
 
-object MagnoliaRowDecoder {
-  type Typeclass[T] = RowDecoder[T]
-
-  def combine[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
-    (e: Seq[String]) =>
-      ctx.constructEither { p =>
-        p.typeclass.decode(Seq(e(p.index)))
+object MagnoliaRowDecoder extends AutoDerivation[RowDecoder]:
+  override def join[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] = value =>
+    ctx
+      .constructEither { param =>
+        param.typeclass.decode(CSV.Row(NonEmptyList(value.l(param.index))))
       }
-        .left
-        .map(_.head)
+      .left
+      .map(_.head)
 
-  def dispatch[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
-    (e: Seq[String]) =>
-      if (e.isEmpty)
-        Left(DecodeError.OutOfBounds(0))
-      else {
+  override def split[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
+    (e: CSV.Row) =>
+      if (e.l.tail.isEmpty) Left(DecodeError.OutOfBounds(0))
+      else
+        println("ololo decoder")
         ctx.subtypes
-          .find(_.typeName.short == e.head)
-          .map(_.typeclass.decode(e.tail))
-          .getOrElse(Left(DecodeError.TypeError(s"Invalid type tag: ${e.head}")))
-      }
-
-  implicit def deriveRowDecoder[T]: Typeclass[T] = macro Magnolia.gen[T]
-}
+          .find(_.typeInfo.short == e.l.head.x)
+          .map(_.typeclass.decode(CSV.Row(nelFromListUnsafe(e.l.tail))))
+          .getOrElse(Left(DecodeError.TypeError(s"Invalid type tag: ${e.l.head}")))

@@ -4,8 +4,8 @@ import sbt._
 object Dependencies {
   object CallbackData extends ModuleWithDependencies {
     val distributionDependencies = Seq(
-      "com.nrinaudo" %% "kantan.csv" % V.kantanCsv,
-      "com.propensive" %% "magnolia" % V.magnolia
+      "com.softwaremill.magnolia1_3" %% "magnolia" % V.magnolia,
+      "ru.johnspade" %% "zcsv" % V.zcsv
     )
 
     override val testDependencies = Seq(

@@ -1,22 +1,20 @@
 package ru.johnspade.tgbot.callbackdata.named
 
-import kantan.csv.RowEncoder
-import magnolia._
+import magnolia1.*
+import ru.johnspade.zcsv.codecs.*
+import ru.johnspade.zcsv.core.CSV
+import zio.prelude.NonEmptyList
 
-object MagnoliaRowEncoder {
-  type Typeclass[T] = RowEncoder[T]
+object MagnoliaRowEncoder extends AutoDerivation[RowEncoder]:
+  override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
+    val encodedFields = ctx.params.foldLeft(List.empty[CSV.Field]) { (acc, p) =>
+      acc ++ p.typeclass.encode(p.deref(value)).l.toSeq
+    }
+    CSV.Row(nelFromListUnsafe(encodedFields))
 
-  def combine[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
-    (d: T) =>
-      ctx.parameters.foldLeft(Seq.empty[String]) {
-        (acc, p) => acc ++ p.typeclass.encode(p.dereference(d))
+  override def split[A](ctx: SealedTrait[Typeclass, A]): Typeclass[A] =
+    (d: A) =>
+      println("ololo encoder")
+      ctx.choose(d) { sub =>
+        CSV.Row(NonEmptyList.cons(CSV.Field(sub.typeInfo.short), sub.typeclass.encode(sub.cast(d)).l))
       }
-
-  def dispatch[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
-    (d: T) =>
-      ctx.dispatch(d) { sub =>
-        sub.typeName.short +: sub.typeclass.encode(sub.cast(d))
-      }
-
-  implicit def deriveRowEncoder[T]: Typeclass[T] = macro Magnolia.gen[T]
-}

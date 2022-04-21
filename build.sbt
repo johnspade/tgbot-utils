@@ -2,13 +2,11 @@ import Dependencies._
 
 name := "tgbot-utils"
 
-ThisBuild / version := "0.5.0"
+ThisBuild / version := "0.6.0"
 
-lazy val scala213 = "2.13.6"
-lazy val scala212 = "2.12.15"
+lazy val scala3 = "3.1.0"
 
-ThisBuild / scalaVersion := scala213
-ThisBuild / crossScalaVersions := List(scala213, scala212)
+ThisBuild / scalaVersion := scala3
 
 ThisBuild / description := "Collection of utilities for building Telegram bots in Scala"
 ThisBuild / organization := "ru.johnspade"
@@ -33,14 +31,12 @@ ThisBuild / testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
 
 lazy val `tgbot-callback-data`: Project = (project in file("tgbot-callback-data"))
   .settings(
-    libraryDependencies ++= CallbackData.dependencies,
-    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
+    libraryDependencies ++= CallbackData.dependencies
   )
 
 lazy val `tgbot-callback-queries`: Project = (project in file("tgbot-callback-queries"))
   .settings(
-    libraryDependencies ++= CallbackQueries.dependencies,
-    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full)
+    libraryDependencies ++= CallbackQueries.dependencies
   )
 
 lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-entities"))
