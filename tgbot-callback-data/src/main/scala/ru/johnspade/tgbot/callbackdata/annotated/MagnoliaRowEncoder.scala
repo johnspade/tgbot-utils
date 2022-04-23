@@ -5,7 +5,7 @@ import magnolia1.*
 import ru.johnspade.zcsv.core.CSV
 import zio.prelude.NonEmptyList
 
-object MagnoliaRowEncoder extends AutoDerivation[RowEncoder]:
+object MagnoliaRowEncoder extends Derivation[RowEncoder]:
   override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
     val encodedFields = ctx.params.foldLeft(List.empty[CSV.Field]) { (acc, p) =>
       acc ++ p.typeclass.encode(p.deref(value)).l.toSeq

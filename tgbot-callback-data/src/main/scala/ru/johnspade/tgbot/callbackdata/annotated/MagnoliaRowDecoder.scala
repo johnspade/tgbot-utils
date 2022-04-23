@@ -7,7 +7,7 @@ import ru.johnspade.zcsv.core.CSV
 import scala.util.Try
 import zio.prelude.NonEmptyList
 
-object MagnoliaRowDecoder extends AutoDerivation[RowDecoder]:
+object MagnoliaRowDecoder extends Derivation[RowDecoder]:
   override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
     ctx
       .constructEither { param =>

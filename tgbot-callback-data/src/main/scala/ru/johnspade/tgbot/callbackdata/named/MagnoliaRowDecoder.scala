@@ -5,7 +5,7 @@ import ru.johnspade.zcsv.codecs.*
 import ru.johnspade.zcsv.core.CSV
 import zio.prelude.NonEmptyList
 
-object MagnoliaRowDecoder extends AutoDerivation[RowDecoder]:
+object MagnoliaRowDecoder extends Derivation[RowDecoder]:
   override def join[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] = value =>
     ctx
       .constructEither { param =>
@@ -18,7 +18,6 @@ object MagnoliaRowDecoder extends AutoDerivation[RowDecoder]:
     (e: CSV.Row) =>
       if (e.l.tail.isEmpty) Left(DecodeError.OutOfBounds(0))
       else
-        println("ololo decoder")
         ctx.subtypes
           .find(_.typeInfo.short == e.l.head.x)
           .map(_.typeclass.decode(CSV.Row(nelFromListUnsafe(e.l.tail))))
