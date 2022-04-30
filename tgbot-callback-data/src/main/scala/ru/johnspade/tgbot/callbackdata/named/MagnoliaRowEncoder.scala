@@ -3,17 +3,16 @@ package ru.johnspade.tgbot.callbackdata.named
 import magnolia1.*
 import ru.johnspade.zcsv.codecs.*
 import ru.johnspade.zcsv.core.CSV
-import zio.prelude.NonEmptyList
 
 object MagnoliaRowEncoder extends Derivation[RowEncoder]:
   override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
-    val encodedFields = ctx.params.foldLeft(List.empty[CSV.Field]) { (acc, p) =>
-      acc ++ p.typeclass.encode(p.deref(value)).l.toSeq
+    val encodedFields = ctx.params.foldLeft(Seq.empty[CSV.Field]) { (acc, p) =>
+      acc ++ p.typeclass.encode(p.deref(value)).l
     }
-    CSV.Row(nelFromListUnsafe(encodedFields))
+    CSV.Row(encodedFields)
 
   override def split[A](ctx: SealedTrait[Typeclass, A]): Typeclass[A] =
     (d: A) =>
       ctx.choose(d) { sub =>
-        CSV.Row(NonEmptyList.cons(CSV.Field(sub.typeInfo.short), sub.typeclass.encode(sub.cast(d)).l))
+        CSV.Row(CSV.Field(sub.typeInfo.short) +: sub.typeclass.encode(sub.cast(d)).l)
       }

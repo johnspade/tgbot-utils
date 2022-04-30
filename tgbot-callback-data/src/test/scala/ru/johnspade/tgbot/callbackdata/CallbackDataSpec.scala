@@ -1,11 +1,12 @@
 package ru.johnspade.tgbot.callbackdata
 
 import zio.test.Assertion.equalTo
-import zio.test._
-import cats.syntax.either._
+import zio.test.*
+import cats.syntax.either.*
+import zio.Scope
 
-object CallbackDataSpec extends DefaultRunnableSpec {
-  override def spec: ZSpec[TestEnvironment, Throwable] = suite("CallbackDataSpec")(
+object CallbackDataSpec extends ZIOSpecDefault:
+  override def spec: ZSpec[TestEnvironment with Scope, Any] = suite("CallbackDataSpec")(
     suite("toCsv")(
       test("should encode case class to CSV with discriminator") {
         val cbData = BuyIcecream("vanilla")
@@ -19,4 +20,3 @@ object CallbackDataSpec extends DefaultRunnableSpec {
       }
     )
   )
-}

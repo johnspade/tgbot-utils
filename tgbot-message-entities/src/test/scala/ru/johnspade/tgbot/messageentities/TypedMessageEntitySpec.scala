@@ -2,11 +2,12 @@ package ru.johnspade.tgbot.messageentities
 
 import ru.johnspade.tgbot.messageentities.TypedMessageEntity._
 import telegramium.bots.{BoldMessageEntity, ItalicMessageEntity}
-import zio.test.Assertion._
-import zio.test._
+import zio.test.Assertion.*
+import zio.test.*
+import zio.Scope
 
-object TypedMessageEntitySpec extends DefaultRunnableSpec {
-  override def spec: ZSpec[TestEnvironment, Throwable] = suite("TypedMessageEntitySpec")(
+object TypedMessageEntitySpec extends ZIOSpecDefault:
+  override def spec: ZSpec[TestEnvironment with Scope, Any] = suite("TypedMessageEntitySpec")(
     suite("convertation")(
       test("toMessageEntities should convert all contained entities") {
         val stringMessageEntities = List(Bold("bold"), Plain("plain"), Italic("italic"))
@@ -26,4 +27,3 @@ object TypedMessageEntitySpec extends DefaultRunnableSpec {
       }
     )
   )
-}
