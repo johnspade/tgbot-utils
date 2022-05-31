@@ -5,13 +5,13 @@ object Dependencies {
   object CallbackData extends ModuleWithDependencies {
     val distributionDependencies = Seq(
       "com.softwaremill.magnolia1_3" %% "magnolia" % V.magnolia,
-      "ru.johnspade" %% "zcsv" % V.zcsv
+      "ru.johnspade"                 %% "csv3s"    % V.csv3s
     )
 
     override val testDependencies = Seq(
-      "dev.zio" %% "zio-test" % V.zio,
-      "dev.zio" %% "zio-test-sbt" % V.zio,
-      "org.typelevel" %% "cats-core" % V.cats
+      "dev.zio"       %% "zio-test"     % V.zio,
+      "dev.zio"       %% "zio-test-sbt" % V.zio,
+      "org.typelevel" %% "cats-core"    % V.cats
     )
   }
 
@@ -29,10 +29,10 @@ object Dependencies {
     )
 
     override val testDependencies = Seq(
-      "dev.zio" %% "zio" % V.zio,
+      "dev.zio" %% "zio"              % V.zio,
       "dev.zio" %% "zio-interop-cats" % V.zioCats,
-      "dev.zio" %% "zio-test" % V.zio,
-      "dev.zio" %% "zio-test-sbt" % V.zio
+      "dev.zio" %% "zio-test"         % V.zio,
+      "dev.zio" %% "zio-test-sbt"     % V.zio
     )
   }
 }

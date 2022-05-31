@@ -17,6 +17,6 @@ object ModuleWithDependencies {
     val kantanCsv   = "0.6.2"
     val magnolia    = "1.0.0"
     val cats        = "2.7.0"
-    val zcsv        = "0.1.0-SNAPSHOT"
+    val csv3s       = "0.1.0"
   }
 }

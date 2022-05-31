@@ -2,10 +2,10 @@ package ru.johnspade.tgbot.callbackdata
 
 import ru.johnspade.tgbot.callbackdata.named.{MagnoliaRowEncoder, MagnoliaRowDecoder}
 import ru.johnspade.tgbot.callbackdata.TestCallbackData.given
-import ru.johnspade.zcsv.codecs.*
-import ru.johnspade.zcsv.codecs.instances.given
-import ru.johnspade.zcsv.printer.CsvPrinter
-import ru.johnspade.zcsv.parser.parseRow
+import ru.johnspade.csv3s.codecs.*
+import ru.johnspade.csv3s.codecs.instances.given
+import ru.johnspade.csv3s.printer.CsvPrinter
+import ru.johnspade.csv3s.parser.parseRow
 import cats.syntax.either.*
 
 sealed trait TestCallbackData {

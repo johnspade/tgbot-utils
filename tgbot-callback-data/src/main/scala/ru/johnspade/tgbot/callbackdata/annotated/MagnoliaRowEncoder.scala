@@ -1,8 +1,8 @@
 package ru.johnspade.tgbot.callbackdata.annotated
 
-import ru.johnspade.zcsv.codecs.*
+import ru.johnspade.csv3s.codecs.*
 import magnolia1.*
-import ru.johnspade.zcsv.core.CSV
+import ru.johnspade.csv3s.core.CSV
 
 object MagnoliaRowEncoder extends Derivation[RowEncoder]:
   override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
