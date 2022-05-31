@@ -1,26 +1,23 @@
 package ru.johnspade.tgbot.callbackdata.annotated
 
-import kantan.csv.RowEncoder
-import magnolia._
+import ru.johnspade.csv3s.codecs.*
+import magnolia1.*
+import ru.johnspade.csv3s.core.CSV
 
-object MagnoliaRowEncoder {
-  type Typeclass[T] = RowEncoder[T]
+object MagnoliaRowEncoder extends Derivation[RowEncoder]:
+  override def join[A](ctx: CaseClass[Typeclass, A]): Typeclass[A] = value =>
+    val encodedFields = ctx.params.foldLeft(Seq.empty[CSV.Field]) { (acc, p) =>
+      acc ++ p.typeclass.encode(p.deref(value)).l
+    }
+    CSV.Row(encodedFields)
 
-  def combine[T](ctx: CaseClass[Typeclass, T]): Typeclass[T] =
-    (d: T) =>
-      ctx.parameters.foldLeft(Seq.empty[String]) {
-        (acc, p) => acc ++ p.typeclass.encode(p.dereference(d))
-      }
-
-  def dispatch[T](ctx: SealedTrait[Typeclass, T]): Typeclass[T] =
-    (d: T) =>
-      ctx.dispatch(d) { sub =>
-        val typeId = sub.annotations.collectFirst {
-          case TypeId(id) => id.toString
-        }
+  override def split[A](ctx: SealedTrait[Typeclass, A]): Typeclass[A] =
+    (d: A) =>
+      ctx.choose(d) { sub =>
+        val typeId = sub.annotations
+          .collectFirst { case TypeId(id) =>
+            id.toString
+          }
           .getOrElse(throw new RuntimeException("TypeId not found"))
-        typeId +: sub.typeclass.encode(sub.cast(d))
+        CSV.Row(CSV.Field(typeId) +: sub.typeclass.encode(sub.cast(d)).l)
       }
-
-  implicit def deriveRowEncoder[T]: Typeclass[T] = macro Magnolia.gen[T]
-}
