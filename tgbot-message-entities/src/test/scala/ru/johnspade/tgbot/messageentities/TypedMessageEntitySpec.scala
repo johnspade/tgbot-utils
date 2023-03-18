@@ -7,7 +7,7 @@ import zio.test.*
 import zio.Scope
 
 object TypedMessageEntitySpec extends ZIOSpecDefault:
-  override def spec: ZSpec[TestEnvironment with Scope, Any] = suite("TypedMessageEntitySpec")(
+  override def spec: Spec[TestEnvironment with Scope, Any] = suite("TypedMessageEntitySpec")(
     suite("convertation")(
       test("toMessageEntities should convert all contained entities") {
         val stringMessageEntities = List(Bold("bold"), Plain("plain"), Italic("italic"))

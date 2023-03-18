@@ -6,7 +6,7 @@ import cats.syntax.either.*
 import zio.Scope
 
 object CallbackDataSpec extends ZIOSpecDefault:
-  override def spec: ZSpec[TestEnvironment with Scope, Any] = suite("CallbackDataSpec")(
+  override def spec: Spec[TestEnvironment with Scope, Any] = suite("CallbackDataSpec")(
     suite("toCsv")(
       test("should encode case class to CSV with discriminator") {
         val cbData = BuyIcecream("vanilla")
