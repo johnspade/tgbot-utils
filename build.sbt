@@ -4,7 +4,7 @@ name := "tgbot-utils"
 
 ThisBuild / version := "0.7.0"
 
-lazy val scala3 = "3.2.2"
+lazy val scala3 = "3.3.0"
 
 ThisBuild / scalaVersion := scala3
 
@@ -31,7 +31,7 @@ ThisBuild / publishMavenStyle := true
 ThisBuild / publishTo         := sonatypePublishToBundle.value
 sonatypeCredentialHost        := "s01.oss.sonatype.org"
 
-ThisBuild / githubWorkflowJavaVersions          := Seq("adopt@1.11", "adopt@1.8")
+ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"), JavaSpec.temurin("11"), JavaSpec.temurin("8"))
 ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 
 ThisBuild / testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")

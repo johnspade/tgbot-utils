@@ -1,4 +1,4 @@
-addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat" % "0.1.20")
-addSbtPlugin("com.codecommit" % "sbt-github-actions" % "0.13.0")
-addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.9.10")
-addSbtPlugin("com.github.sbt" % "sbt-pgp" % "2.1.2")
+addSbtPlugin("io.github.davidgregory084" % "sbt-tpolecat"       % "0.4.2")
+addSbtPlugin("com.github.sbt"            % "sbt-github-actions" % "0.15.0")
+addSbtPlugin("org.xerial.sbt"            % "sbt-sonatype"       % "3.9.21")
+addSbtPlugin("com.github.sbt"            % "sbt-pgp"            % "2.2.1")
