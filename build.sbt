@@ -2,7 +2,7 @@ import Dependencies._
 
 name := "tgbot-utils"
 
-ThisBuild / version := "0.7.0"
+ThisBuild / version := "0.7.1"
 
 lazy val scala3 = "3.3.0"
 
