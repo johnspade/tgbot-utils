@@ -21,9 +21,9 @@ ThisBuild / scmInfo := Some(
 ThisBuild / developers := List(
   Developer(
     "johnspade",
-    "Ivan Lopatin",
+    "Ivan L",
     "ivan+tgbotutils@ilopatin.ru",
-    url("https://about.johnspade.ru")
+    url("https://github.com/johnspade")
   )
 )
 
@@ -55,5 +55,4 @@ lazy val root = (project in file("."))
   .settings(
     name := "tgbot-utils"
   )
-  .aggregate(`tgbot-callback-data`, `tgbot-callback-queries`, `tgbot-message-entities`)
-  .dependsOn(`tgbot-callback-data`, `tgbot-callback-queries`, `tgbot-message-entities`)
+  .aggregate(`tgbot-callback-data`, `tgbot-callback-queries`)

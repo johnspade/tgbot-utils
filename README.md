@@ -134,6 +134,8 @@ val handler = CallbackQueryHandler.handle(
 
 ## tgbot-message-entities
 
+**DEPRECATED**: It is now a part of [Telegramium](https://github.com/apimorphism/telegramium) and will be removed soon.
+
 String interpolators to create [message entities](https://core.telegram.org/bots/api#messageentity) with auto-calculated 
 offsets and lenghts.
 
