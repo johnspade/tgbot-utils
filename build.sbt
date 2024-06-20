@@ -2,7 +2,7 @@ import Dependencies._
 
 name := "tgbot-utils"
 
-ThisBuild / version := "0.8.0"
+ThisBuild / version := "0.8.1"
 
 lazy val scala3 = "3.3.3"
 
@@ -50,4 +50,5 @@ lazy val root = (project in file("."))
   .settings(
     name := "tgbot-utils"
   )
+  .dependsOn(`tgbot-callback-data`, `tgbot-callback-queries`)
   .aggregate(`tgbot-callback-data`, `tgbot-callback-queries`)
