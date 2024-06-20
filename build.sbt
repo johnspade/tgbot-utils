@@ -21,7 +21,7 @@ ThisBuild / scmInfo := Some(
 ThisBuild / developers := List(
   Developer(
     "johnspade",
-    "Ivan L",
+    "John S",
     "i+tgbotutils@jspade.dev",
     url("https://github.com/johnspade")
   )
