@@ -21,29 +21,46 @@ libraryDependencies += "ru.johnspade" %% "<module name>" % "<latest version in b
 
 ## tgbot-callback-data
 
-Represent your callback query data types as an ADT and use [kantan.csv](https://github.com/nrinaudo/kantan.csv) 
+Represent your callback query data types as an ADT and use [csv3s](https://github.com/johnspade/csv3s) 
 to (de)serialize them to CSV strings.
 
 ```scala
-import kantan.csv.DecodeError.TypeError
-import kantan.csv.ops._
-import kantan.csv._
-import ru.johnspade.tgbot.callbackdata.named.MagnoliaRowEncoder._
-import ru.johnspade.tgbot.callbackdata.named.MagnoliaRowDecoder._
+import ru.johnspade.csv3s.codecs.*
+import ru.johnspade.csv3s.codecs.instances.given
+import ru.johnspade.csv3s.parser.*
+import ru.johnspade.csv3s.printer.CsvPrinter
+
+import ru.johnspade.tgbot.callbackdata.named.*
+import ru.johnspade.tgbot.callbackqueries.*
 
 sealed abstract class CallbackData {
-  def toCsv: String = this.writeCsvRow(rfc)
+  import CallbackData.{encoder, csvPrinter}
+
+  def toCsv: String = csvPrinter.print(encoder.encode(this))
 }
 
 final case class BuyIcecream(flavor: String) extends CallbackData
 case object SayHello extends CallbackData
 
 object CallbackData {
-  implicit val buyIcecreamRowCodec: RowCodec[BuyIcecream] = RowCodec.caseOrdered(BuyIcecream.apply _)(BuyIcecream.unapply)
-  implicit val sayHelloRowCodec: RowCodec[SayHello.type] = RowCodec.from(_ => Right(SayHello))(_ => Seq.empty)
+  given encoder: RowEncoder[CallbackData] = MagnoliaRowEncoder.derived
+  given decoder: RowDecoder[CallbackData] = MagnoliaRowDecoder.derived
 
-  def decode(csv: String): ReadResult[CallbackData] =
-    csv.readCsv[List, CallbackData](rfc).headOption.getOrElse(Left(TypeError("Callback data is missing")))
+  val Separator: Char = ','
+  private val csvParser = new CsvParser(Separator)
+  val csvPrinter: CsvPrinter = CsvPrinter.withSeparator(Separator)
+
+  def decode(csv: String): Either[DecodeFailure, CallbackData] =
+    parseRow(csv, csvParser).left
+      .map(e => ru.johnspade.tgbot.callbackqueries.ParseError(e.toString))
+      .flatMap(
+        decoder
+          .decode(_)
+          .left
+          .map { e =>
+            ru.johnspade.tgbot.callbackqueries.DecodeError(e.getMessage)
+          }
+      )
 }
 
 val csv = BuyIcecream("vanilla").toCsv
@@ -134,41 +151,7 @@ val handler = CallbackQueryHandler.handle(
 
 ## tgbot-message-entities
 
-**DEPRECATED**: It is now a part of [Telegramium](https://github.com/apimorphism/telegramium) and will be removed soon.
-
-String interpolators to create [message entities](https://core.telegram.org/bots/api#messageentity) with auto-calculated 
-offsets and lenghts.
-
-```scala
-import ru.johnspade.tgbot.messageentities.TypedMessageEntity
-import ru.johnspade.tgbot.messageentities.TypedMessageEntity.Plain.lineBreak
-import ru.johnspade.tgbot.messageentities.TypedMessageEntity._
-
-val messageEntities = List(
-  plain"bold: ", bold"bold text", lineBreak,
-  plain"italic: ", italic"italic text", lineBreak,
-  plain"email: ", email"do-not-reply@telegram.org", lineBreak,
-  plain"pre: ", Pre(text = "monowidth block", language = "Scala")
-)
-
-val tgMessageEntities = TypedMessageEntity.toMessageEntities(messageEntities)
-/*
-  List(
-    BoldMessageEntity(6,9), 
-    ItalicMessageEntity(24,11), 
-    EmailMessageEntity(43,25), 
-    PreMessageEntity(74,15,Scala)
-  )
- */
-
-val text = messageEntities.map(_.text).mkString
-/*
-  bold: bold text
-  italic: italic text
-  email: do-not-reply@telegram.org
-  pre: monowidth block
- */
-```
+**REMOVED**: It is now a part of [Telegramium](https://github.com/apimorphism/telegramium) and has been removed.
 
 # Usages
 

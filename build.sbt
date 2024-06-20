@@ -4,7 +4,7 @@ name := "tgbot-utils"
 
 ThisBuild / version := "0.7.1"
 
-lazy val scala3 = "3.3.0"
+lazy val scala3 = "3.3.3"
 
 ThisBuild / scalaVersion := scala3
 
@@ -22,7 +22,7 @@ ThisBuild / developers := List(
   Developer(
     "johnspade",
     "Ivan L",
-    "ivan+tgbotutils@ilopatin.ru",
+    "i+tgbotutils@jspade.dev",
     url("https://github.com/johnspade")
   )
 )
@@ -44,11 +44,6 @@ lazy val `tgbot-callback-data`: Project = (project in file("tgbot-callback-data"
 lazy val `tgbot-callback-queries`: Project = (project in file("tgbot-callback-queries"))
   .settings(
     libraryDependencies ++= CallbackQueries.dependencies
-  )
-
-lazy val `tgbot-message-entities`: Project = (project in file("tgbot-message-entities"))
-  .settings(
-    libraryDependencies ++= MessageEntities.dependencies
   )
 
 lazy val root = (project in file("."))

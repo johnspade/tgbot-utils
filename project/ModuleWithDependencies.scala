@@ -11,11 +11,10 @@ trait ModuleWithDependencies {
 
 object ModuleWithDependencies {
   object V {
-    val telegramium = "8.67.1"
-    val zio         = "2.0.15"
-    val zioCats     = "23.0.0.7"
-    val magnolia    = "1.3.2"
-    val cats        = "2.9.0"
-    val csv3s       = "0.1.3"
+    val telegramium = "9.74.0"
+    val zio         = "2.1.3"
+    val magnolia    = "1.3.7"
+    val cats        = "2.12.0"
+    val csv3s       = "0.1.4"
   }
 }
