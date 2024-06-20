@@ -31,7 +31,7 @@ ThisBuild / publishMavenStyle := true
 ThisBuild / publishTo         := sonatypePublishToBundle.value
 sonatypeCredentialHost        := "s01.oss.sonatype.org"
 
-ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"), JavaSpec.temurin("11"), JavaSpec.temurin("8"))
+ThisBuild / githubWorkflowJavaVersions          := Seq(JavaSpec.temurin("17"), JavaSpec.temurin("11"))
 ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 
 ThisBuild / testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
